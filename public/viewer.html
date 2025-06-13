@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie List</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Movie List</h1>
+    <ul id="movie-list"></ul>
+    <script>
+      async function loadMovies() {
+        const token = window.location.pathname.split('/').pop();
+        try {
+          const res = await fetch(`/movies/${token}`);
+          if (!res.ok) throw new Error('Invalid token or expired link');
+          const movies = await res.json();
+          const list = document.getElementById('movie-list');
+          list.innerHTML = '';
+          movies.forEach(movie => {
+            const li = document.createElement('li');
+            li.textContent = `${movie.title} (${movie.year})`;
+            list.appendChild(li);
+          });
+        } catch (err) {
+          document.body.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+        }
+      }
+      loadMovies();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!-- public/qr.html -->
+<html>
+  <body>
+    <h1>Scan QR to View Movies</h1>
+    <img id="qr" alt="QR Code will appear here"/>
+    <script>
+      async function fetchQr() {
+        try {
+            const res = await fetch('/qr');
+            const data = await res.json();
+            console.log('Fetched QR data:', data);
+            document.getElementById('qr').src = data.qrCodeDataURL;
+        } catch (err) {
+            console.error('Failed to fetch QR code:', err);
+        }
+        
+      }
+      fetchQr();
+      setInterval(fetchQr, 10000);
+    </script>
+  </body>
+</html>
