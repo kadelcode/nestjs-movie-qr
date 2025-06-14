@@ -23,7 +23,7 @@ export class QrController {
         // Generate a QR code that points to a local URL with the token as a parameter
         // The URL would presumably be used to retrieve the cached movies
         const qrCodeDataURL = await QRCode.toDataURL(
-            `http://localhost:3000/viewer.html/${token}`
+            `http://localhost:3000/viewer.html?token=${token}`
         )
 
         // Return both the QR code (as a data URL) and the token to the client

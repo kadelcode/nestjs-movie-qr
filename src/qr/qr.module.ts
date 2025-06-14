@@ -19,6 +19,9 @@ import { QrService } from './qr.service';
   // Providers can be injected into controllers or other providers
   // QrService will be available for dependency injection throughout this module
   providers: [QrService],
+
+  // The 'exports' array lists the subset of providers that should be available to other modules
+  exports: [QrService],
 })
 
 // Export the module class so it can be imported by other modules

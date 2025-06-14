@@ -26,13 +26,18 @@ export class QrService {
         // Store the random movies in cache with the token as key
         this.tokenCache.set(token, randomMovies);
 
+        console.log(`Caching token: ${token} with ${randomMovies.length} movies`);
+        console.log('Token cache now has:', this.tokenCache.size, 'items');
+
         // Set a timeout to automatically remove the cached data after 60 seconds
         // This prevents the cache from growing indefinitely
-        setTimeout(() => this.tokenCache.delete(token), 60000);
+        setTimeout(() => this.tokenCache.delete(token), 5 * 60 * 1000); // 5 minutes
     }
 
     // Method to retrieve cache movies using a token
     getMoviesByToken(token: string): any[] | null {
+        console.log('Looking up token:', token);
+        console.log('All tokens in cache', Array.from(this.tokenCache.keys()));
         // Return the cached movies if token exists, otherwise return null
         return this.tokenCache.get(token) || null;
     }
