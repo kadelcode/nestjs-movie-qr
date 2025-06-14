@@ -4,6 +4,8 @@ import * as QRCode from 'qrcode'; // Library for generating QR codes
 import { v4 as uuidv4 } from 'uuid'; // Library for generating unique identifiers
 import { QrService } from "./qr.service"; // Import the QrService for business logic
 
+const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+
 // Define a controller with the route prefix '/qr'
 @Controller('qr')
 export class QrController {
@@ -23,7 +25,7 @@ export class QrController {
         // Generate a QR code that points to a local URL with the token as a parameter
         // The URL would presumably be used to retrieve the cached movies
         const qrCodeDataURL = await QRCode.toDataURL(
-            `http://localhost:3000/viewer.html?token=${token}`
+            `${baseUrl}/viewer.html?token=${token}`
         )
 
         // Return both the QR code (as a data URL) and the token to the client
