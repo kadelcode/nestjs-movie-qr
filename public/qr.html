@@ -9,6 +9,7 @@
             const res = await fetch('/qr');
             const data = await res.json();
             console.log('Fetched QR data:', data);
+            console.log(data.qrCodeDataURL);
             document.getElementById('qr').src = data.qrCodeDataURL;
         } catch (err) {
             console.error('Failed to fetch QR code:', err);
