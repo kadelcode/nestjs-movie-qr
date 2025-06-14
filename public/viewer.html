@@ -23,17 +23,36 @@
     <ul id="movie-list"></ul>
     <script>
       async function loadMovies() {
-        const token = window.location.pathname.split('/').pop();
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
         try {
           const res = await fetch(`/movies/${token}`);
+          console.log(res)
           if (!res.ok) throw new Error('Invalid token or expired link');
           const movies = await res.json();
+          console.log('Movies', movies)
           const list = document.getElementById('movie-list');
           list.innerHTML = '';
           movies.forEach(movie => {
             const li = document.createElement('li');
-            li.textContent = `${movie.title} (${movie.year})`;
-            list.appendChild(li);
+
+            // Create image element
+            const img = document.createElement('img');
+            img.src = movie.Poster;
+            img.alt = movie.Title;
+            img.style.width = '150px';
+            img.style.display = 'block';
+            img.style.marginBottom = '8px';
+
+            // Create title element
+            const title = document.createElement('p');
+            title.textContent = movie.Title;
+            title.style.fontWeight = 'bold';
+
+            li.appendChild(img);
+            li.appendChild(title);
+            document.getElementById('movie-list').appendChild(li);
           });
         } catch (err) {
           document.body.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
