@@ -12,8 +12,8 @@ export class QrService {
     async cacheRandomMovies(token: string) {
         // Construct the path to the Film.JSON file
         // __dirname is the directory of the current module
-        // '../../data/Film.json' goes up two levels and into the data folder
-        const filePath = path.join(__dirname, '..', '..', 'data', 'Film.json');
+        // '../../data/Film.json' goes up one level and into the data folder
+        const filePath = path.join(__dirname, '..', 'data', 'Film.json');
 
         // Read and parse the JSON file containing film data
         const films = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
